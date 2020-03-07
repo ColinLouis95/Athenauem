@@ -22,21 +22,35 @@ class Values {
 
 // class to handle the function of the  Vault
 public class fff {
-	private  Map<String,Values> vaultStorage = new HashMap<String,Values>();
+	private static Map<String,Values> vaultStorage = new HashMap<String,Values>();
 	
 	public fff() {
 		
 	}
 	
-	
-	public void printAllInfo() {
-		System.out.println(Arrays.asList(vaultStorage));
+	public boolean checkVault() {
+		boolean message;
+		if(vaultStorage.isEmpty()) {
+			message = true; 
+			System.out.println("Your vault is empty, please add in your info.");
+		}
+		else {
+			message = false;
+			System.out.println("You have items in your vault!");
+		}
+		return message;
 	}
 	
+	public void printAllInfo() {
+		if(!checkVault()) {
+		System.out.println(Arrays.asList(vaultStorage));
+		}
+	}
+	
+//when updating password, change the name of the password, do not change anything about site.
 	public void updatePassword(String user, String pass, String newPass) {
 		Values v1 = new Values(pass,newPass);
 		vaultStorage.replace(user,v1);
-		
 	}
 	
 	public void addInfo(String user, String pass, String site) {
@@ -52,19 +66,32 @@ public class fff {
 		// TODO Auto-generated method stub
 		
 		fff f = new fff();
-		f.addInfo("username", "pass", "site");
+		f.checkVault();
+		f.addInfo("username", "pass", "site@.com");
 		f.printAllInfo();
 		System.out.println();
-		f.addInfo("colin", "kugler", "ADAF");
+		f.addInfo("colin", "kugler", "ADAF@.com");
 		f.printAllInfo();
-		f.updatePassword("username", "pass", "lfklfgknjnag");
+		f.updatePassword("username", "newpass","site@.com");
 		System.out.println();
 		f.printAllInfo();
 		System.out.println();
-		f.updatePassword("colin", "kugler", "louis");
+		f.updatePassword("colin", "louis", "ADAF@.com");
 		System.out.println();
 		f.printAllInfo();
-
+		System.out.println();
+		
+		encryption e = new encryption();
+		String asd = e.convertMap(vaultStorage);
+		System.out.println(asd);
+		System.out.println();
+		String en = e.encrypt(asd);
+		System.out.println(en);
+		System.out.println('a' + 5);
+	
+		
+		
+		
 	}
 
 
