@@ -1,4 +1,3 @@
-package storepasswords;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.BufferedWriter;
@@ -6,21 +5,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-/*  Colin Kugler
+/*  	Colin Kugler
  *  
- *  gihtub-ColinLouis95
+ *  	gihtub-ColinLouis95
  *  
- *  Password Vault
+ *  	Password-Vault
  *  
- *  -this is a program that was made in computer science 1 class, project assigned by professor Tracy Dobbs
- *  -designed to create a Passwords & Accounts type password holder.
- *  -this is the text-based version.
+ *  	-this is a program that was inspired from a project assigned by professor Tracy Dobbs of Arapahoe Community College
+ *  	-designed to create a Passwords & Accounts type password holder.
+ * 		-this is the text-based version.
  *  
- *  -class Values was created to be able to hold two Strings to be placed in a hashmaps value.
- *  -the key is a string, mine is the username, and the Value class holds the password and origin.
+ *  	-class Values was created to be able to hold two Strings to be placed in a hashmaps value.
+ *  	-the key is a string, mine is the username, and the Value class holds the password and origin.
  *  
- *  - encryption and decryption methods are used to encode/decode the String versions of the HashMap (using convertMap)
- *  - the methods although work when printing them out, don't touch the original hashmap.
+ *  	-encryption and decryption methods are used to encode/decode the String versions of the HashMap (using convertMap)
+ *  	-the methods although work when printing them out, don't touch the original hashmap.
+ *  
+ *  	-any recommendations to improve code is welcomed via discord message.
  *   
  */
 
@@ -41,11 +42,13 @@ class Values {
 	}
 }
 
-// class to handle the function of the  Vault, creating a hashmap vault
+// class to handle the function of the  Vault, creating a hashmap vault to store everything in
 public class password_vault extends PasswordCipher {
-	private  final  Map<String,Values> vaultStorage = new HashMap<String,Values>();
-	protected Scanner in = new Scanner(System.in);
 	
+	private final Map<String,Values> vaultStorage = new HashMap<String,Values>();
+	protected Scanner in = new Scanner(System.in);
+
+// inits password_vault with menu, creating one-lined code in main.
 	public password_vault() {
 		Menu();
 	}
@@ -64,14 +67,18 @@ public class password_vault extends PasswordCipher {
 		return message;
 	}
 	
+	
 // prints out all contents of vault if not empty(setting vaultStorage as a string to print nicely
-	protected void printAllInfo() {
+	public String printInfo() {
+		String vault = "";
 		if(!checkVault()) {
-		System.out.print("\n" + new String(convertMap(vaultStorage)));
+		vault = new String(convertMap(vaultStorage));
+		System.out.print("\n" + vault + "\n");
 		System.out.println();
 		}
+		return vault;
 	}
-	
+
 //when updating password, change the name of the password, do not change anything about site.
 	public String updatePassword(String user, String pass, String newPass) {
 		Values v1 = new Values(pass,newPass);
@@ -96,7 +103,7 @@ public class password_vault extends PasswordCipher {
 		try {
 			String data = new String(convertMap(vaultStorage));
 			System.out.println("Enter in file path/filename.txt you wish to save to:  ");
-			String path = in.nextLine();
+			String path = in.next();
 			BufferedWriter file = new BufferedWriter(new FileWriter(path));
 			file.write(data);
 			file.close();
@@ -109,7 +116,7 @@ public class password_vault extends PasswordCipher {
 		
 	}
 
-// Menu method representing the vault in text form, giving the user options to choose from to interact with vault
+// Menu method representing the vaultUI in text form, giving the user options to choose from to interact with vault
 // using switch statement to control the user choices, 
 // while start = true keeps the menu continuing with choice 6 exiting the system as end.
 	public void Menu() {
@@ -143,23 +150,23 @@ public class password_vault extends PasswordCipher {
 				
 			case 2:
 				System.out.print("Enter the username: ");
-				String userb = in.next();
+				String userc = in.next();
 				System.out.print("Enter the password to change: ");
-				String passb = in.next();
+				String passc = in.next();
 				System.out.print("Enter the new password: ");
-				String originb = in.next();
-				updatePassword(userb,passb,originb);
+				String originc = in.next();
+				updatePassword(userc,passc,originc);
 				System.out.println("The password has been updated.");
 				break;
 				
 			case 3:
-				printAllInfo();
+				printInfo();
 				break;
 				
 			case 4:
 				System.out.print("Enter the username from field you wish to delete: ");
-				String userc = in.next();
-				deleteInfo(userc);
+				String userd = in.next();
+				deleteInfo(userd);
 				break;
 				
 			case 5:
@@ -177,7 +184,6 @@ public class password_vault extends PasswordCipher {
 	}
 
 	public static void main(String[] args) {
-		password_vault pv = new password_vault();
-
+		new password_vault();
 	}
 }

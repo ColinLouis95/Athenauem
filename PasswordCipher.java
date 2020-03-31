@@ -1,29 +1,45 @@
-package storepasswords;
 import java.util.Map;
 
 /*      Colin Kugler
+ * 
  * 		gihtub-ColinLouis95
  * 
+ * 		Password-Vault
+ * 
  * 		This is a class that handles all conversion/security of the Password Vault
- * 		-convertMap will take in a map(this is by <String,Value>) and using StringBuilder create a string represenation of the map
- * 		-encrypt and decrypt work with convertMap since that the map converted to a string, and either encode or decode each letter.
+ * 		-convertMap will take in a map(this is by <String,Value>) and using StringBuilder create a string representation of the map
+ * 		-encode and decode work with convertMap since that the map converted to a string, and either encode or decode each letter.
+ * 
+ * 		-any recommendations to improve code is welcomed via discord message.
  */
 
 public class PasswordCipher {
 	
 	public PasswordCipher() {
 		
-	}
-	
+	}	
+
+// method for turning a Map into a String for displaying vault contents	
 	protected String convertMap(Map<String,Values> map) {
 		StringBuilder mapToString = new StringBuilder("");
 		for(String key: map.keySet()) {
-			mapToString.append(key + " " + map.get(key) + ", ");
+			mapToString.append(key + " " + map.get(key) + "\n");
 		}
-		mapToString.delete(mapToString.length()-2, mapToString.length());
+		//mapToString.delete(mapToString.length()-2, mapToString.length());
 		return mapToString.toString();
 	}
 	
+// convertMap method for vault GUI	
+	protected String convertMapUI(Map<String,ValuesUI> map) {
+		StringBuilder mapToString = new StringBuilder("");
+		for(String key: map.keySet()) {
+			mapToString.append(key + " " + map.get(key) + "\n");
+		}
+		//mapToString.delete(mapToString.length()-2, mapToString.length());
+		return mapToString.toString();
+	}
+	
+// method for vault encryption	
 	protected String encrypt(String e) {
 		String encryptedVault = "";
 		int key = 6;
@@ -56,6 +72,7 @@ public class PasswordCipher {
 		return encryptedVault;
 	}
 	
+// method for vault decryption	
 	protected String decrypt(String d) {
 		String decryptedVault= "";
 		int key = 6;
